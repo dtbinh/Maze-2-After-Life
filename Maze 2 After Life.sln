@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{5D090626-6465-FA3C-3FD6-6CCD25DEE9A4}") = "Maze 2 After Life", "Assembly-CSharp.csproj", "{8B7A0B58-E7BF-F1BC-71DF-5CDC05E3E41E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B7A0B58-E7BF-F1BC-71DF-5CDC05E3E41E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B7A0B58-E7BF-F1BC-71DF-5CDC05E3E41E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B7A0B58-E7BF-F1BC-71DF-5CDC05E3E41E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B7A0B58-E7BF-F1BC-71DF-5CDC05E3E41E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+										GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 120
+		$3.TabsToSpaces = False
+		$3.EolMarker = Windows
+		$3.inheritsSet = VisualStudio
+		$3.inheritsScope = text/plain
+		$3.scope = text/plain
+		$0.DotNetNamingPolicy = $4
+		$4.DirectoryNamespaceAssociation = None
+		$4.ResourceNamePolicy = FileFormatDefault
+	EndGlobalSection
+
+EndGlobal
