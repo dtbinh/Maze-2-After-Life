@@ -4,26 +4,19 @@ using System.Collections.Generic;
 
 public class AttackBot_AI : Aggressive_AI {
 	public float attackRate;
-	bool escaping;
-	Node escapeNode;
+	public float fieldOfViewAngle;
 
 	// Update is called once per frame
 	void Update () {
 		_state = (PlayerHealth.isAlive)?_state:State.Idle;
+		distanceBetweenPlayer = Vector3.Distance(player.transform.position, transform.position);
 
 		switch(_state){
 		case State.Init:
 			Init ();
 			break;
-		case State.Patrol:
-			Patrol();
-			break;
-		case State.Notified:
-			Notified();
-			if (PlayerStatus.status==1) _state = State.Danger;
-			break;
-		case State.Danger:
-			Danger();
+		case State.Approach:
+			Approach();
 			break;
 		case State.Idle:
 			break;
@@ -31,41 +24,21 @@ public class AttackBot_AI : Aggressive_AI {
 	}
 
 	void Init(){
-		_state = State.Patrol;
+		_state = State.Approach;
 	}
 
-	void Notified(){
-		nav.SetDestination(player.transform.position);
+	void Approach(){
 		skin.material.color = Color.yellow;
 		timer -= Time.deltaTime;
-		if(distanceBetweenPlayer<attackRange && timer <=0){
-			timer = attackRate;
-			Attack();
-		}
-	}
 
-	/* Escape from the player
-	 */
-	void Danger(){
-		nav.Stop();
-		skin.material.color = Color.green;
-		if (!escaping) {
-			var neighbours = gridMap.GetNeighbours (transform.position);
-			escapeNode = gridMap.GetBlock (transform.position);
-			foreach (Node n in neighbours) {
-				escapeNode = Vector3.Distance (escapeNode.worldPosition, player.transform.position) > Vector3.Distance (n.worldPosition, player.transform.position) ? escapeNode : n;
+		if(distanceBetweenPlayer < attackRange){
+			lookAt(player.transform.position);
+			if(timer <= 0){
+				timer = attackRate;
+				scanForPlayer();
 			}
-		}
-		lookAt(escapeNode.worldPosition);
-		transform.position = Vector3.MoveTowards(transform.position, escapeNode.worldPosition, speed * Time.deltaTime);
-
-		escaping = !Equals (transform.position, escapeNode.worldPosition);
-
-		if(PlayerStatus.status!=1){
-			_state = State.Patrol;
-			escaping = false;
-			patrolling = false;
-		}
+		}else
+			nav.SetDestination(player.transform.position);
 	}
 
 	/* Attack the player
@@ -75,7 +48,34 @@ public class AttackBot_AI : Aggressive_AI {
 		if(Physics.Raycast(transform.position, transform.forward, out hit, attackRange, targetLayer)){
 			GameObject go = hit.collider.gameObject;
 			if(go.tag == "Player"){
-				go.GetComponent<PlayerHealth>().TakeDamage(damage + GameMaster.botPowerUpgrade);
+				go.GetComponent<PlayerHealth>().TakeDamage(damage + GameMaster.enemyPowerUpgrade);
+			}
+		}
+	}
+
+	protected void scanForPlayer(){
+		// Create a vector from the enemy to the player and store the angle between it and forward.
+		Vector3 direction = player.transform.position - transform.position;
+		float angle = Vector3.Angle(direction, transform.forward);
+		// If the angle between forward and where the player is, is less than half the angle of view...
+		if(angle < fieldOfViewAngle * 0.5f)
+			CastRay(attackRange, direction);
+	}
+	
+	
+	/*
+	 * Cast ray to a direction
+	 */
+	void CastRay(float range, Vector3 direction){
+		var ray = new Ray(transform.position, direction.normalized);
+		RaycastHit hit;
+		// ... and if a raycast towards the player hits something...
+		if(Physics.Raycast(ray, out hit, range, targetLayer)){
+			GameObject go = hit.collider.gameObject;
+			// ... and if the raycast hits the player...
+			if(go.tag == player.tag){
+				// ... the player is in sight.
+				go.GetComponent<PlayerHealth>().TakeDamage(damage + GameMaster.enemyPowerUpgrade);
 			}
 		}
 	}

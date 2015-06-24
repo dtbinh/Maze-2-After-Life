@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Aggressive_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Attack Bot\AttackBot_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Defence Bot\DefenceBot_AI.cs" />
@@ -64,9 +63,10 @@
      <Compile Include="Assets\Scrips\Map\GridGenerator.cs" />
      <Compile Include="Assets\Scrips\Map\MazeGenerator.cs" />
      <Compile Include="Assets\Scrips\Map\Node.cs" />
-     <Compile Include="Assets\Scrips\Map\TileType.cs" />
-     <Compile Include="Assets\Scrips\OptionFile.cs" />
-     <Compile Include="Assets\Scrips\OptionMenu.cs" />
+     <Compile Include="Assets\Scrips\Option\OptionFile.cs" />
+     <Compile Include="Assets\Scrips\Option\OptionMenu.cs" />
+     <Compile Include="Assets\Scrips\Option\SaveFile.cs" />
+     <Compile Include="Assets\Scrips\Option\SaveLoad.cs" />
      <Compile Include="Assets\Scrips\PausedMenu.cs" />
      <Compile Include="Assets\Scrips\PickupGenerator.cs" />
      <Compile Include="Assets\Scrips\Player\FirstPersonController.cs" />
@@ -75,11 +75,10 @@
      <Compile Include="Assets\Scrips\Player\PlayerStatus.cs" />
      <Compile Include="Assets\Scrips\Player\WeaponManager.cs" />
      <Compile Include="Assets\Scrips\ResultMenu.cs" />
-     <Compile Include="Assets\Scrips\SaveFile.cs" />
-     <Compile Include="Assets\Scrips\SaveLoad.cs" />
      <Compile Include="Assets\Scrips\Weapon\BigBullet.cs" />
      <Compile Include="Assets\Scrips\Weapon\Gun.cs" />
      <Compile Include="Assets\Scrips\Weapon\LasserGun.cs" />
+     <Compile Include="Assets\Scrips\Weapon\ShootGun.cs" />
      <Compile Include="Assets\Scrips\Weapon\SmallBullet.cs" />
      <Compile Include="Assets\Scrips\Weapon\SmallGun.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />

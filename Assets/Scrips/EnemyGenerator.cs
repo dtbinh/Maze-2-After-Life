@@ -61,12 +61,11 @@ public class EnemyGenerator : MonoBehaviour {
 		maxAddNumOfAtkBots = GameMaster.maxAddNumOfAtkBots;
 		maxAddNumOfDefBots = GameMaster.maxAddNumOfDefBots;
 		maxAddNumOfSpdBots = GameMaster.maxAddNumOfSpdBots;
-		gridMapPos = GridGenerator.gridMapWorldPosition;
 		// Adding extra bots over time
 		InvokeRepeating("AddNewAtkBots", newABotPerSecs, newABotPerSecs);
 		InvokeRepeating("AddNewSpdBots", newABotPerSecs, newABotPerSecs);
 		InvokeRepeating("AddNewDefBots", newABotPerSecs, newABotPerSecs);
-		print(gridMapPos.Count);
+		gridMapPos = GridGenerator.gridMapWorldPosition;
 	}
 	
 	// Update is called once per frame
@@ -74,7 +73,7 @@ public class EnemyGenerator : MonoBehaviour {
 		if (PlayerHealth.isAlive) {
 			InstantiateBots (maxNumOfAtkBots, AttackbotPrefab, minDisAtkBot, maxDisAtkBot, addNumOfAtkBots);
 			//InstantiateBots (maxNumOfSpdBots, SpeedbotPrefab, minDisSpdBot, maxDisSpdBot, addNumOfSpdBots);
-			//InstantiateBots (maxNumOfDefBots, DefencebotPrefab, minDisDefBot, maxDisDefBot, addNumOfDefBots);
+			InstantiateBots (maxNumOfDefBots, DefencebotPrefab, minDisDefBot, maxDisDefBot, addNumOfDefBots);
 		}
 	}
 	/* 

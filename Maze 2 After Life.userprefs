@@ -1,11 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scrips\Map\GridGenerator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scrips\Weapon\ShootGun.cs">
     <Files>
-      <File FileName="Assets\Scrips\Map\TileType.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scrips\Map\Node.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scrips\Map\MazeGenerator.cs" Line="9" Column="19" />
-      <File FileName="Assets\Scrips\Map\GridGenerator.cs" Line="25" Column="1" />
+      <File FileName="Assets\Scrips\GameMaster.cs" Line="177" Column="1" />
+      <File FileName="Assets\Scrips\Weapon\SmallGun.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scrips\Weapon\ShootGun.cs" Line="4" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

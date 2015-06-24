@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour {
-	
-	public float mouseSensitivity = 2f;
 	public float baseSpeed = 6.0f;
 	public float currentSpeed;
     public float jumpSpeed = 8.0F;
@@ -17,7 +15,6 @@ public class FirstPersonController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        mouseSensitivity = GameMaster.mouseSensitivity;
         Cursor.lockState = CursorLockMode.Locked;
 		currentSpeed = baseSpeed;
 		controller = GetComponent<CharacterController>();
@@ -26,10 +23,10 @@ public class FirstPersonController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Camera rotate up and down
-		float rotLeftRight = Input.GetAxis("Mouse X") * mouseSensitivity;
+		float rotLeftRight = Input.GetAxis("Mouse X") * GameMaster.mouseSensitivity;
 		transform.Rotate(0,rotLeftRight,0);
 		// Camera rotate left and right
-		verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+		verticalRotation -= Input.GetAxis("Mouse Y") * GameMaster.mouseSensitivity;
 		verticalRotation = Mathf.Clamp(verticalRotation, -UP_DOWN_RANGE, UP_DOWN_RANGE);
 		Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation,0,0);
 

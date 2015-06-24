@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class DefenceBot_AI : Aggressive_AI{
 
@@ -18,21 +18,18 @@ public class DefenceBot_AI : Aggressive_AI{
 	// Update is called once per frame
 	void Update () {
 		_state = (PlayerHealth.isAlive)?_state:State.Idle;
+		distanceBetweenPlayer = Vector3.Distance(player.transform.position, transform.position);
 		timer -= Time.deltaTime;
-		//pathfinding.enabled = (_state == State.Notified) && !targetMarked;
 
 		switch(_state){
 		case State.Init:
 			Init ();
 			break;
-		case State.Patrol:
-			Patrol();
-			break;
-		case State.Notified:
-			Notified();
+		case State.Approach:
+			Approach();
 			break;
 		case State.Danger:
-			Warning();
+			Danger();
 			break;
 		case State.Idle:
 			break;
@@ -43,7 +40,7 @@ public class DefenceBot_AI : Aggressive_AI{
 	void Init(){
 		orbs = transform.GetChild(0).GetChild(0).GetComponentsInChildren<Transform>();
 		rigidBody = GetComponent<Rigidbody>();
-		_state = State.Patrol;
+		_state = State.Approach;
 	}
 
 	void OnCollisionEnter(Collision c){
@@ -51,7 +48,7 @@ public class DefenceBot_AI : Aggressive_AI{
 			ImpactReceiver forceReceiver = c.collider.GetComponent<ImpactReceiver>();
 			if (forceReceiver && !attacked){
 				attacked = true;
-				c.collider.GetComponent<PlayerHealth>().TakeDamage (damage + GameMaster.botPowerUpgrade);
+				c.collider.GetComponent<PlayerHealth>().TakeDamage (damage + GameMaster.enemyPowerUpgrade);
 				forceReceiver.AddImpact (transform.forward, impactForce);
 
 				_state = State.Danger;
@@ -60,11 +57,13 @@ public class DefenceBot_AI : Aggressive_AI{
 		}
 	}
 
-	void Notified(){
+	void Approach(){
 		if(!targetMarked){
+			if(distanceBetweenPlayer < attackRange)
+				lookAt(player.transform.position);
+			else
+				nav.SetDestination(player.transform.position);
 			skin.material.color = Color.yellow;
-			lookAt(player.transform.position);
-			scanForPlayer();
 			TargetMark();
 		}else if(timer < 0){
 			transform.position = Vector3.MoveTowards(transform.position, targetPosition, chargeSpeed * Time.deltaTime);
@@ -76,12 +75,12 @@ public class DefenceBot_AI : Aggressive_AI{
 			}
 		}
 	}
-	void Warning(){
+	void Danger(){
 		targetMarked = false;
 		rigidBody.freezeRotation = false;
 		skin.material.color = Color.green;
 		if(timer < 0){
-			_state = State.Notified;
+			_state = State.Approach;
 			attacked = false;
 		}
 	}

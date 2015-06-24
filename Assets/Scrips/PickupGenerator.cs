@@ -83,10 +83,13 @@ public class PickupGenerator : MonoBehaviour {
 	 * Generate the treasures in random locations
 	 */
 	void InstantiateTreasure(int playerIndex){
+		/*// Number of treasures
 		int[] treasurePosition = new int[GameMaster.targetTreasureNumber];
+		// First treasure Z position
 		treasurePosition [0] = 5;
+		// Last treasure Z position
 		treasurePosition [GameMaster.targetTreasureNumber-1] = GameMaster.worldPosZ - 5;
-
+		// All treasures in the middle Z position
 		for(int i = 1; i < treasurePosition.Length-1; i++){
 			treasurePosition [i] = GameMaster.worldPosZ / (i + 1);
 		}
@@ -100,6 +103,10 @@ public class PickupGenerator : MonoBehaviour {
 					instantiated = true;
 				}
 			}while(!instantiated);
+		}*/
+		
+		for (int z = 0; z < GameMaster.gridSizeZ; z++) {
+			Instantiate (treasure, GridGenerator.grid[Random.Range(0,GameMaster.gridSizeX),z].worldPosition, Quaternion.identity);
 		}
 	}
 	/* 

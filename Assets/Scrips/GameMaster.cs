@@ -69,14 +69,15 @@ public class GameMaster : MonoBehaviour {
 	public static int maxSpeedDrops;
 	public static int maxPotionDrops;
 	public static bool win;
-	public static int targetTreasureNumber = 3;
-	public static int botPowerUpgrade;
+	public static int targetTreasureNumber = 5;
+	public static int enemyPowerUpgrade;
+	public static int enemySpeedUpgrade;
 	/*
 	 * Property for option menu
 	 */
 	public static float volume_sfx;
 	public static float volume_music;
-	public static float mouseSensitivity;
+	public static float mouseSensitivity = 2;
 	/*
 	 * Property for game saving
 	 */
@@ -122,52 +123,57 @@ public class GameMaster : MonoBehaviour {
 	 * Select a game mode and specify the properties
 	 */
 	public static void InitGame(string difficulty){
-        difficulty = "Easy";
 		switch(difficulty){
 		case "Easy":
 			currentMode = "Easy";
 			gridSizeX = 5;
 			gridSizeZ = 5;
-			maxNumberOfAttackBots = 7;
-			maxNumberOfDefenceBots = 0;
+			maxNumberOfAttackBots = 10;
+			maxNumberOfDefenceBots = 5;
 			maxNumberOfSpeedBots = 0;
-			maxAddNumOfAtkBots = 0;
-        	maxAddNumOfDefBots = 0;
+			maxAddNumOfAtkBots = 5;
+        	maxAddNumOfDefBots = 2;
         	maxAddNumOfSpdBots = 0;
-			maxPowerDrops = 2;
-			maxSpeedDrops = 2;
-			maxPotionDrops = 3;
-			botPowerUpgrade = 0;
+			maxPowerDrops = 1;
+			maxSpeedDrops = 1;
+			maxPotionDrops = 2;
+			enemyPowerUpgrade = 0;
+			enemySpeedUpgrade = 0;
+			targetTreasureNumber = 5;
 			break;
 		case "Normal":
 			currentMode = "Normal";
-			gridSizeX = 5;
-			gridSizeZ = 5;
+			gridSizeX = 7;
+			gridSizeZ = 7;
 			maxNumberOfAttackBots = 15;
-			maxNumberOfDefenceBots = 5;
-			maxNumberOfSpeedBots = 3;
+			maxNumberOfDefenceBots = 10;
+			maxNumberOfSpeedBots = 0;
 			maxAddNumOfAtkBots = 10;
 			maxAddNumOfDefBots = 5;
-			maxAddNumOfSpdBots = 2;
+			maxAddNumOfSpdBots = 0;
 			maxPowerDrops = 3;
 			maxSpeedDrops = 3;
 			maxPotionDrops = 6;
-			botPowerUpgrade = 1;
+			enemyPowerUpgrade = 1;
+			enemySpeedUpgrade = 2;
+			targetTreasureNumber = 7;
 			break;
 		case "Hard":
 			currentMode = "Hard";
-			gridSizeX = 5;
-			gridSizeZ = 5;
-			maxNumberOfAttackBots = 30;
-			maxNumberOfDefenceBots = 20;
-			maxNumberOfSpeedBots = 10;
-			maxAddNumOfAtkBots = 15;
-			maxAddNumOfDefBots = 10;
-			maxAddNumOfSpdBots = 5;
+			gridSizeX = 9;
+			gridSizeZ = 9;
+			maxNumberOfAttackBots = 20;
+			maxNumberOfDefenceBots = 15;
+			maxNumberOfSpeedBots = 15;
+			maxAddNumOfAtkBots = 10;
+			maxAddNumOfDefBots = 0;
+			maxAddNumOfSpdBots = 0;
 			maxPowerDrops = 5;
 			maxSpeedDrops = 5;
 			maxPotionDrops = 8;
-			botPowerUpgrade = 2;
+			enemyPowerUpgrade = 2;
+			enemySpeedUpgrade = 4;
+			targetTreasureNumber = 9;
 			break;
 		}
 

@@ -27,7 +27,6 @@ public class BigBullet : MonoBehaviour {
 		Collider[] colliders = Physics.OverlapSphere(transform.position, aoeRange, colliderLayer);
 
 		foreach(Collider c in colliders){
-			c.gameObject.GetComponent<Enemy_AI>().notified = true;
 			c.GetComponent<EnemyHealth>().TakeDamage(damage);
 		}
 

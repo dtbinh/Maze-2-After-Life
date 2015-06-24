@@ -13,10 +13,10 @@ public class MazeGenerator : MonoBehaviour {
 	int gridSizeZ;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		gridSizeX = GameMaster.gridSizeX;
 		gridSizeZ = GameMaster.gridSizeZ;
-		offset = 10;
+		offset = GameMaster.gridSizeOffset;
 		ground.position = new Vector3(GameMaster.worldPosX/2,0,GameMaster.worldPosZ/2);
 		ground.localScale = new Vector3(gridSizeX, 1, gridSizeZ);
 		NavMeshBuilder.BuildNavMesh();

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SmallGun : Gun {
+public class ShootGun : Gun {
 	public float fireRate;
 	public float subFireRate;
 	public GameObject small_bullet_prefab;

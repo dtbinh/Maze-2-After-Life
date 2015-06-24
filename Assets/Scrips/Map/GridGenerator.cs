@@ -4,16 +4,20 @@ using System.Collections.Generic;
 
 public class GridGenerator : MonoBehaviour {
 	public static Node[,] grid;
+	public static List<Vector3> gridMapWorldPosition;
+	public GameObject enemyGenerator;
+	public GameObject pickupGenerator;
 	int gridSizeX;
 	int gridSizeZ;
 	int offset;
-	public static List<Vector3> gridMapWorldPosition;
 	// Use this for initialization
 	void Start () {
 		gridSizeX = GameMaster.gridSizeX;
 		gridSizeZ = GameMaster.gridSizeZ;
 		offset = GameMaster.gridSizeOffset;
 		GenerateBlockData();
+		enemyGenerator.SetActive(true);
+		pickupGenerator.SetActive(true);
 	}
 
 	void GenerateBlockData(){
@@ -21,7 +25,7 @@ public class GridGenerator : MonoBehaviour {
 		gridMapWorldPosition = new List<Vector3>();
         for (int z = 0; z < gridSizeZ; z++) {
             for (int x = 0; x < gridSizeX; x++) {
-                var v = new Vector3(x * offset + 5f, 5f, (gridSizeZ - z) * offset - 5f);
+                var v = new Vector3(x * offset + 5f, .5f, (gridSizeZ - z) * offset - 5f);
                 grid[x, z] = new Node(MazeGenerator.gridMap[x, gridSizeX - 1 - z], v, x, z);
                 gridMapWorldPosition.Add(v);
             }

@@ -25,7 +25,7 @@ public class PlayerStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		treasureDisplay.text = treasureCounter+"/3";
+		treasureDisplay.text = treasureCounter+"/"+GameMaster.targetTreasureNumber;
 	}
 
 	void OnTriggerEnter(Collider c){
