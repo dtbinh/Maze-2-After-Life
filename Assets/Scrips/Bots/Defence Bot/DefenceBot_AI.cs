@@ -1,18 +1,16 @@
 using UnityEngine;
 
 public class DefenceBot_AI : Aggressive_AI{
-
-	public float OrbRotationSpeed;
 	public float chargeTime;
 	public float chargeSpeed;
-	public float warningTime;
 	public float impactForce;
 	public AudioSource chargeSound;
 
-	Transform[] orbs;
+	float searchInterval = 2f;
+	float t;
+
 	bool targetMarked;
 	bool attacked;
-	Vector3 targetPosition;
 	Rigidbody rigidBody;
 
 	// Update is called once per frame
@@ -25,84 +23,68 @@ public class DefenceBot_AI : Aggressive_AI{
 		case State.Init:
 			Init ();
 			break;
-		case State.Approach:
+		case State.Attack:
 			Approach();
-			break;
-		case State.Danger:
-			Danger();
 			break;
 		case State.Idle:
 			break;
 		}
-		RotateOrbs();
 	}
 
 	void Init(){
-		orbs = transform.GetChild(0).GetChild(0).GetComponentsInChildren<Transform>();
+		skin.material.color = Color.yellow;
 		rigidBody = GetComponent<Rigidbody>();
-		_state = State.Approach;
+		_state = State.Attack;
 	}
 
 	void OnCollisionEnter(Collision c){
 		if(c.collider.tag == "Player" && targetMarked){
-			ImpactReceiver forceReceiver = c.collider.GetComponent<ImpactReceiver>();
-			if (forceReceiver && !attacked){
+			if ( !attacked){
 				attacked = true;
 				c.collider.GetComponent<PlayerHealth>().TakeDamage (damage + GameMaster.enemyPowerUpgrade);
-				forceReceiver.AddImpact (transform.forward, impactForce);
-
-				_state = State.Danger;
-				timer = warningTime;
+				c.collider.GetComponent<Rigidbody>().AddForce(transform.position - c.collider.transform.position * 150);
 			}
 		}
 	}
 
 	void Approach(){
 		if(!targetMarked){
-			if(distanceBetweenPlayer < attackRange)
-				lookAt(player.transform.position);
-			else
+			if(nav.remainingDistance < 15f){
 				nav.SetDestination(player.transform.position);
+			}else if(t < 0){
+				t = searchInterval;
+				nav.SetDestination(player.transform.position);
+			}
 			skin.material.color = Color.yellow;
 			TargetMark();
-		}else if(timer < 0){
-			transform.position = Vector3.MoveTowards(transform.position, targetPosition, chargeSpeed * Time.deltaTime);
-			if (!chargeSound.isPlaying)
-				chargeSound.Play ();
-			if(transform.position == targetPosition){
-				_state = State.Danger;
-				timer = warningTime;
-			}
 		}
-	}
-	void Danger(){
-		targetMarked = false;
-		rigidBody.freezeRotation = false;
-		skin.material.color = Color.green;
-		if(timer < 0){
-			_state = State.Approach;
-			attacked = false;
-		}
-	}
-
-	void RotateOrbs(){
-		if(_state != State.Init)
-			foreach(Transform t in orbs){
-				t.RotateAround(transform.position, new Vector3(0, 1, 0), OrbRotationSpeed * Time.deltaTime);
-			}
 	}
 
 	void TargetMark(){
 		RaycastHit hit;
-		if(Physics.Raycast(transform.position, transform.forward, out hit, attackRange, targetLayer)){
+		if(Physics.SphereCast(transform.position, 0.75f, transform.forward, out hit, attackRange, targetLayer)){
 			if(hit.transform.tag == "Player"){
+				nav.Stop();
 				skin.material.color = Color.red;
 				rigidBody.freezeRotation = true;
+				attacked = false;
 				targetMarked = true;
-				targetPosition = hit.point;
-				timer = chargeTime;
 				lookAt(hit.point);
+				Invoke("Charge", chargeTime);
 			}
 		}
+	}
+
+	void Charge(){
+		chargeSound.Play ();
+		rigidBody.AddForce(transform.forward*10000);
+		Invoke("ApproachAgain", 1);
+	}
+
+	void ApproachAgain(){
+		nav.Resume();
+		targetMarked = false;
+		rigidBody.freezeRotation = false;
+		skin.material.color = Color.yellow;
 	}
 }

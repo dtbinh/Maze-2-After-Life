@@ -64,12 +64,12 @@ public class LasserGun : Gun {
 				if(Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayer)){
 					LineNoise(ray.origin, hit.point);
 					if(spark_effect != null)
-						Destroy(Instantiate(spark_effect, hit.point, Camera.main.transform.rotation),0.3f);
+						Destroy(Instantiate(spark_effect, hit.point, transform.rotation),0.3f);
 					if(timer <= 0){
 						RaycastHit[] hits = Physics.SphereCastAll(ray, damageRatius, Vector3.Distance(transform.position,hit.point), enemyLayer);
 						foreach(RaycastHit h in hits){
 							h.collider.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
-							Destroy(Instantiate(spark_effect, h.point, Camera.main.transform.rotation),0.3f);
+							Destroy(Instantiate(spark_effect, h.point, transform.rotation),0.3f);
 						}
 						timer = damageRate;
 					}
@@ -123,12 +123,12 @@ public class LasserGun : Gun {
 
 				if(Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayer)){
 					LineNoise(ray.origin, hit.point);
-					Destroy(Instantiate(spark_effect, hit.point, Camera.main.transform.rotation),0.3f);
+					Destroy(Instantiate(spark_effect, hit.point, transform.rotation),0.3f);
 					if(timer <= 0){
 						RaycastHit[] hits = Physics.SphereCastAll(ray, damageRatius + extraDamageRatius, Vector3.Distance(transform.position,hit.point), enemyLayer);
 						foreach(RaycastHit h in hits){
 							h.collider.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage + extraDamage);
-							Destroy(Instantiate(spark_effect, h.point, Camera.main.transform.rotation),0.3f);
+							Destroy(Instantiate(spark_effect, h.point, transform.rotation),0.3f);
 						}
 						timer = damageRate;
 					}

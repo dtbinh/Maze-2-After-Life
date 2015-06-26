@@ -17,8 +17,8 @@ public class SpeedBot_AI : Enemy_AI {
 		// ... and if a raycast towards the player hits something...
 		if(Physics.Raycast(ray, out hit, 30f, targetLayer)){
 			// ... and if the raycast hits the player...
-			if (hit.transform.tag == player.tag)
-				_state = State.Danger;
+			//if (hit.transform.tag == player.tag)
+				//_state = State.Danger;
 		}
 
 		_state = (PlayerHealth.isAlive)?_state:State.Idle;
@@ -29,9 +29,7 @@ public class SpeedBot_AI : Enemy_AI {
 			break;
 		case State.Patrol:
 			break;
-		case State.Approach:
-			break;
-		case State.Danger:
+		case State.Attack:
 			break;
 		case State.Idle:
 			break;

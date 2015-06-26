@@ -4,8 +4,7 @@ public enum State{
 	Idle,
 	Init,
 	Patrol,
-	Approach,
-	Danger,
+	Attack,
 }
 
 public class Enemy_AI : MonoBehaviour {

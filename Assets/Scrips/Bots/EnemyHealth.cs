@@ -14,15 +14,14 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     public void TakeDamage(float amount) {
-		if(!isAlive)
-            return;
+		if(isAlive){
+	        enemyAudio.Play ();
 
-        enemyAudio.Play ();
-
-        currentHealth -= amount;
-        if(currentHealth <= 0){
-            Death ();
-        }
+	        currentHealth -= amount;
+	        if(currentHealth <= 0){
+	            Death ();
+	        }
+		}
     }
 
     void Death (){
@@ -34,7 +33,7 @@ public class EnemyHealth : MonoBehaviour {
 		}
 
 		Destroy(gameObject, 1f);
-
+		GetComponent<EnemyDrop>().DropItem();
 		GetComponent<Rigidbody>().useGravity = true;
 
         enemyAudio.clip = deathClip;
@@ -49,7 +48,7 @@ public class EnemyHealth : MonoBehaviour {
 			GameMaster.attackbotKilled++;
 			GetComponent<BoxCollider>().enabled = false;
 			GetComponent<AttackBot_AI>().enabled = false;
-			//GetComponent<Pathfinding>().enabled = false;
+			GetComponent<SphereCollider>().enabled = false;
 			break;
 		case "SpeedBot(Clone)":
 			GameMaster.speedbotKilled++;
@@ -60,7 +59,6 @@ public class EnemyHealth : MonoBehaviour {
 			GameMaster.defencebotKilled++;
 			GetComponent<SphereCollider>().enabled = false;
 			GetComponent<DefenceBot_AI>().enabled = false;
-			//GetComponent<Pathfinding>().enabled = false;
 			break;
 		}
 

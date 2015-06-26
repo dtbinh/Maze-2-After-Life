@@ -11,13 +11,13 @@ public class PlayerHealth : MonoBehaviour {
 	public AudioClip deadClip;
 	public static bool isAlive;
 
-	FirstPersonController fpController;
+	PlayerMovement playerMovement;
 	
 	bool damaged;
 	
 	void Awake (){
 		isAlive = true;
-		fpController = GetComponent <FirstPersonController> ();
+		playerMovement = GetComponent <PlayerMovement> ();
 		currentHealth = baseHealth;
 	}
 	
@@ -39,7 +39,7 @@ public class PlayerHealth : MonoBehaviour {
 			playerAudio.clip = deadClip;
 			playerAudio.Play();
 			
-			fpController.enabled = false;
+			playerMovement.enabled = false;
 			foreach(Transform t in Camera.main.transform){
 				t.gameObject.SetActive(false);
 			}

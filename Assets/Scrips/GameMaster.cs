@@ -128,7 +128,7 @@ public class GameMaster : MonoBehaviour {
 			currentMode = "Easy";
 			gridSizeX = 5;
 			gridSizeZ = 5;
-			maxNumberOfAttackBots = 10;
+			maxNumberOfAttackBots = 5;
 			maxNumberOfDefenceBots = 5;
 			maxNumberOfSpeedBots = 0;
 			maxAddNumOfAtkBots = 5;
@@ -143,10 +143,10 @@ public class GameMaster : MonoBehaviour {
 			break;
 		case "Normal":
 			currentMode = "Normal";
-			gridSizeX = 7;
-			gridSizeZ = 7;
-			maxNumberOfAttackBots = 15;
-			maxNumberOfDefenceBots = 10;
+			gridSizeX = 6;
+			gridSizeZ = 6;
+			maxNumberOfAttackBots = 10;
+			maxNumberOfDefenceBots = 7;
 			maxNumberOfSpeedBots = 0;
 			maxAddNumOfAtkBots = 10;
 			maxAddNumOfDefBots = 5;
@@ -154,26 +154,26 @@ public class GameMaster : MonoBehaviour {
 			maxPowerDrops = 3;
 			maxSpeedDrops = 3;
 			maxPotionDrops = 6;
-			enemyPowerUpgrade = 1;
+			enemyPowerUpgrade = 0;
 			enemySpeedUpgrade = 2;
-			targetTreasureNumber = 7;
+			targetTreasureNumber = 6;
 			break;
 		case "Hard":
 			currentMode = "Hard";
-			gridSizeX = 9;
-			gridSizeZ = 9;
-			maxNumberOfAttackBots = 20;
-			maxNumberOfDefenceBots = 15;
+			gridSizeX = 7;
+			gridSizeZ = 7;
+			maxNumberOfAttackBots = 15;
+			maxNumberOfDefenceBots = 10;
 			maxNumberOfSpeedBots = 15;
-			maxAddNumOfAtkBots = 10;
+			maxAddNumOfAtkBots = 7;
 			maxAddNumOfDefBots = 0;
 			maxAddNumOfSpdBots = 0;
 			maxPowerDrops = 5;
 			maxSpeedDrops = 5;
 			maxPotionDrops = 8;
-			enemyPowerUpgrade = 2;
+			enemyPowerUpgrade = 0;
 			enemySpeedUpgrade = 4;
-			targetTreasureNumber = 9;
+			targetTreasureNumber = 7;
 			break;
 		}
 

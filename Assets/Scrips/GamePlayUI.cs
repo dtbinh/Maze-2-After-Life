@@ -21,14 +21,14 @@ public class GamePlayUI : MonoBehaviour {
 	public GameObject weapon;
 	public AudioMixerSnapshot pausedAudio;
 	public AudioMixerSnapshot unpausedAudio;
-	FirstPersonController fpc;
+	PlayerMovement playerMovement;
 
 	// Use this for initialization
 	void Start () {
 		pausedUI.enabled = false;
 		pausedUICanvasGroup.interactable = false;
 		pausedUICanvasGroup.blocksRaycasts = false;
-		fpc = GameObject.Find ("_Player").GetComponent <FirstPersonController> ();
+		playerMovement = GameObject.Find ("_Player").GetComponent <PlayerMovement> ();
 		if(GameMaster.newPlayer){
 			Resume();
 		}
@@ -40,9 +40,6 @@ public class GamePlayUI : MonoBehaviour {
 		score.text = "Score: "+GameMaster.currentScore;
 		healthSlider.value = PlayerHealth.currentHealth;
 		time.text = GameMaster.GetTime (GameMaster.playedTime);
-		// hide or show the cursor
-		Cursor.lockState = wantedMode;
-		Cursor.visible = (CursorLockMode.Locked != wantedMode);
 		// Escape key to pause
 		if (Input.GetKeyDown(KeyCode.Escape)){
 			if(!pausedUI.enabled)
@@ -53,14 +50,12 @@ public class GamePlayUI : MonoBehaviour {
 	 * Pause and unpause the game
 	 */
 	public void Resume(){
-		// Unlock the cursor
-		wantedMode = CursorLockMode.Locked == wantedMode ? CursorLockMode.None : CursorLockMode.Locked;
 		// Show paused menu
 		pausedUI.enabled = !pausedUI.enabled;
 		pausedUICanvasGroup.interactable = !pausedUICanvasGroup.interactable;
 		pausedUICanvasGroup.blocksRaycasts = !pausedUICanvasGroup.blocksRaycasts;
 		// Hide the weapons
-		fpc.enabled = !fpc.enabled;
+		playerMovement.enabled = !playerMovement.enabled;
 		weapon.SetActive (!weapon.activeSelf);
 		Pause ();
 	}

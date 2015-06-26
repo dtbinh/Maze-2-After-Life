@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
 public class MazeGenerator : MonoBehaviour {
 	public Transform ground;
 	public GameObject vertWall;
 	public GameObject horiWall;
 	public GameObject smallWall;
-	public GameObject g;
 	public static int[,] gridMap;
 	int offset;
 	int gridSizeX;
 	int gridSizeZ;
-
 	// Use this for initialization
 	void Awake () {
 		gridSizeX = GameMaster.gridSizeX;
@@ -19,7 +16,6 @@ public class MazeGenerator : MonoBehaviour {
 		offset = GameMaster.gridSizeOffset;
 		ground.position = new Vector3(GameMaster.worldPosX/2,0,GameMaster.worldPosZ/2);
 		ground.localScale = new Vector3(gridSizeX, 1, gridSizeZ);
-		NavMeshBuilder.BuildNavMesh();
 		GenerateMapData();
 		GenerateMapVisual();
 	}
@@ -44,10 +40,6 @@ public class MazeGenerator : MonoBehaviour {
                 // draw the west wall
                 if ((gridMap[x, z - 1] & 8) == 0)
                     t = (GameObject)Instantiate(vertWall, new Vector3(x * offset, -.5f, z * offset - 5), Quaternion.identity);
-                t.gameObject.transform.parent = transform;
-                // draw the down ground
-                if ((gridMap[x, z - 1] & 32) == 0)
-                    t = (GameObject)Instantiate(g, new Vector3(x * offset + 5f, -.5f, z * offset - 5f), Quaternion.identity);
                 t.gameObject.transform.parent = transform;
             }
             t = (GameObject)Instantiate(smallWall, new Vector3(gridSizeX * offset, -.5f, z * offset), Quaternion.identity);

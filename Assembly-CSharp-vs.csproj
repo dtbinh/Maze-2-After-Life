@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scrips\Bots\Aggressive_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Attack Bot\AttackBot_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Defence Bot\DefenceBot_AI.cs" />
+     <Compile Include="Assets\Scrips\Bots\EnemyDrop.cs" />
      <Compile Include="Assets\Scrips\Bots\EnemyHealth.cs" />
      <Compile Include="Assets\Scrips\Bots\Enemy_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Speed Bot\SpeedBot_AI.cs" />
@@ -69,9 +70,9 @@
      <Compile Include="Assets\Scrips\Option\SaveLoad.cs" />
      <Compile Include="Assets\Scrips\PausedMenu.cs" />
      <Compile Include="Assets\Scrips\PickupGenerator.cs" />
-     <Compile Include="Assets\Scrips\Player\FirstPersonController.cs" />
-     <Compile Include="Assets\Scrips\Player\ImpactReceiver.cs" />
+     <Compile Include="Assets\Scrips\Player\CameraFollow.cs" />
      <Compile Include="Assets\Scrips\Player\PlayerHealth.cs" />
+     <Compile Include="Assets\Scrips\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scrips\Player\PlayerStatus.cs" />
      <Compile Include="Assets\Scrips\Player\WeaponManager.cs" />
      <Compile Include="Assets\Scrips\ResultMenu.cs" />
