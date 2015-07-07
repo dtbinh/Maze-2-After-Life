@@ -7,7 +7,7 @@ public class EnemyDrop : MonoBehaviour {
 	public void DropItem () {
 		foreach(ItemDrop i in itemDrops){
 			if(Random.value <= i.dropRate)
-				Destroy(Instantiate(i.item,transform.position,Quaternion.identity),5);
+				Destroy(Instantiate(i.item,transform.position,Quaternion.identity),3);
 		}
 	}
 }

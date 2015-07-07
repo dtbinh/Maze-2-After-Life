@@ -32,7 +32,6 @@ public class DefenceBot_AI : Aggressive_AI{
 	}
 
 	void Init(){
-		skin.material.color = Color.yellow;
 		rigidBody = GetComponent<Rigidbody>();
 		_state = State.Attack;
 	}
@@ -42,7 +41,7 @@ public class DefenceBot_AI : Aggressive_AI{
 			if ( !attacked){
 				attacked = true;
 				c.collider.GetComponent<PlayerHealth>().TakeDamage (damage + GameMaster.enemyPowerUpgrade);
-				c.collider.GetComponent<Rigidbody>().AddForce(transform.position - c.collider.transform.position * 150);
+				c.collider.GetComponent<Rigidbody>().AddForce(transform.position - c.collider.transform.position * 100);
 			}
 		}
 	}
@@ -55,7 +54,6 @@ public class DefenceBot_AI : Aggressive_AI{
 				t = searchInterval;
 				nav.SetDestination(player.transform.position);
 			}
-			skin.material.color = Color.yellow;
 			TargetMark();
 		}
 	}
@@ -65,7 +63,6 @@ public class DefenceBot_AI : Aggressive_AI{
 		if(Physics.SphereCast(transform.position, 0.75f, transform.forward, out hit, attackRange, targetLayer)){
 			if(hit.transform.tag == "Player"){
 				nav.Stop();
-				skin.material.color = Color.red;
 				rigidBody.freezeRotation = true;
 				attacked = false;
 				targetMarked = true;
@@ -78,13 +75,12 @@ public class DefenceBot_AI : Aggressive_AI{
 	void Charge(){
 		chargeSound.Play ();
 		rigidBody.AddForce(transform.forward*10000);
-		Invoke("ApproachAgain", 1);
+		Invoke("ApproachAgain", 0.5f);
 	}
 
 	void ApproachAgain(){
 		nav.Resume();
 		targetMarked = false;
 		rigidBody.freezeRotation = false;
-		skin.material.color = Color.yellow;
 	}
 }

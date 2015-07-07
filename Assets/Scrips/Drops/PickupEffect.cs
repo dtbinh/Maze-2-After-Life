@@ -14,7 +14,6 @@ public class PickupEffect : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		playerStatus = GameObject.Find("_Player").GetComponent<PlayerStatus>();
-		pickupManager = GameObject.Find("_PickupGenerator").GetComponent<PickupGenerator>();
 		playerHealth = GameObject.Find("_Player").GetComponent<PlayerHealth>();
 		sc = GetComponent<SphereCollider> ();
 	}
@@ -35,10 +34,5 @@ public class PickupEffect : MonoBehaviour {
 			}
 			Destroy(gameObject, 2f);
 		}
-
-	}
-
-	void OnDestroy(){
-		pickupManager.PickupTaken(gameObject.name, gameObject.transform.position);
 	}
 }

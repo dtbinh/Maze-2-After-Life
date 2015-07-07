@@ -39,13 +39,15 @@ public class LasserGun : Gun {
 	void Update(){
 		timer -= Time.deltaTime;
 		chargerBar.value = chargeTimer;
-		if(Input.GetMouseButton(0) && !chargedFiring){
-			StopCoroutine("FireLaser");
-			StartCoroutine("FireLaser");
-		}
-		if(Input.GetMouseButton(1) && !chargedFiring){
-			StopCoroutine("FireChargedLaser");
-			StartCoroutine("FireChargedLaser");
+		if(PlayerHealth.isAlive){
+			if(Input.GetMouseButton(0) && !chargedFiring){
+				StopCoroutine("FireLaser");
+				StartCoroutine("FireLaser");
+			}
+			if(Input.GetMouseButton(1) && !chargedFiring){
+				StopCoroutine("FireChargedLaser");
+				StartCoroutine("FireChargedLaser");
+			}
 		}
 	}
 

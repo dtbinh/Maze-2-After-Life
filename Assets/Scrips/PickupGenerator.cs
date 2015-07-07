@@ -8,76 +8,19 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class PickupGenerator : MonoBehaviour {
-	/*
-	 * Pick up prefabs
-	 */
-	public GameObject powerDrop;
-	public GameObject speedDrop;
-	public GameObject potionDrop;
 	public GameObject player;
 	public GameObject treasure;
-	// The duration of the pick ups
-	public float duration;
-	/*
-	 * Maximum number of pick ups
-	 */
-	int maxPowerDrops;
-	int maxSpeedDrops;
-	int maxPotionDrops;
-	/*
-	 * Current number of pick ups
-	 */
-	int curNumOfPowerDrops;
-	int curNumOfSpeedDrops;
-	int curNumOfPotionDrops;
-	/*
-	 * Location storages
-	 */
-	List<Vector3> freePos;
-	List<Vector3> usedPos;
 
 	// Use this for initialization
 	void Start () {
-		maxPowerDrops = GameMaster.maxPowerDrops;
-		maxSpeedDrops = GameMaster.maxSpeedDrops;
-		maxPotionDrops = GameMaster.maxPotionDrops;
-
-		freePos = GridGenerator.gridMapWorldPosition;
-
-		int index = Random.Range (0, freePos.Count - 1);
-		player.transform.position = freePos[index];
+		int index = Random.Range (0, GridGenerator.gridMapWorldPosition.Count - 1);
+		player.transform.position = GridGenerator.gridMapWorldPosition[index];
 
 		InstantiateTreasure (index);
-
-		usedPos = new List<Vector3>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// Generate power up
-		if(curNumOfPowerDrops >= 0 && curNumOfPowerDrops <= maxPowerDrops){
-			curNumOfPowerDrops++;
-			int index = Random.Range(0,freePos.Count-1);
-			usedPos.Add(freePos[index]);
-			Destroy (Instantiate(powerDrop, freePos[index],Quaternion.identity), duration);
-			freePos.RemoveAt(index);
-		}
-		// Generate speed up
-		if(curNumOfSpeedDrops >= 0 && curNumOfSpeedDrops <= maxSpeedDrops){
-			curNumOfSpeedDrops++;
-			int index = Random.Range(0,freePos.Count-1);
-			usedPos.Add(freePos[index]);
-			Destroy (Instantiate(speedDrop, freePos[index],Quaternion.identity), duration);
-			freePos.RemoveAt(index);
-		}
-		// Generate potion
-		if(curNumOfPotionDrops >= 0 && curNumOfPotionDrops <= maxPotionDrops){
-			curNumOfPotionDrops++;
-			int index = Random.Range(0,freePos.Count-1);
-			usedPos.Add(freePos[index]);
-			Destroy (Instantiate(potionDrop, freePos[index],Quaternion.identity),duration);
-			freePos.RemoveAt(index);
-		}
 	}
 	/*
 	 * Generate the treasures in random locations
@@ -108,25 +51,5 @@ public class PickupGenerator : MonoBehaviour {
 		for (int z = 0; z < GameMaster.gridSizeZ; z++) {
 			Instantiate (treasure, GridGenerator.grid[Random.Range(0,GameMaster.gridSizeX),z].worldPosition, Quaternion.identity);
 		}
-	}
-	/* 
-	 * Update the map when the pick up is taking
-	 * @name: the pick up name
-	 * @pos: the location where its taken
-	 */
-	public void PickupTaken(string name, Vector3 pos){
-		switch(name){
-		case "Power(Clone)":
-			curNumOfPowerDrops--;
-			break;
-		case "Speed(Clone)":
-			curNumOfSpeedDrops--;
-			break;
-		case "Potion(Clone)":
-			curNumOfPotionDrops--;
-			break;
-		}
-		usedPos.Remove(pos);
-		freePos.Add(pos);
 	}
 }

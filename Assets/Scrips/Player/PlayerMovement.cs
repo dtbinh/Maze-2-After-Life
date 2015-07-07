@@ -16,9 +16,10 @@ public class PlayerMovement : MonoBehaviour {
 	void FixedUpdate(){
 		float h = Input.GetAxisRaw("Horizontal");
 		float v = Input.GetAxisRaw("Vertical");
-
-		Move(h, v);
-		Turning();
+		if(PlayerHealth.isAlive){
+			Move(h, v);
+			Turning();
+		}
 	}
 
 	void Move(float h, float v){

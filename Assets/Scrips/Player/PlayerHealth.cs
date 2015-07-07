@@ -10,14 +10,11 @@ public class PlayerHealth : MonoBehaviour {
 	public AudioSource playerAudio;
 	public AudioClip deadClip;
 	public static bool isAlive;
-
-	PlayerMovement playerMovement;
 	
 	bool damaged;
 	
 	void Awake (){
 		isAlive = true;
-		playerMovement = GetComponent <PlayerMovement> ();
 		currentHealth = baseHealth;
 	}
 	
@@ -38,8 +35,7 @@ public class PlayerHealth : MonoBehaviour {
 			isAlive = false;
 			playerAudio.clip = deadClip;
 			playerAudio.Play();
-			
-			playerMovement.enabled = false;
+
 			foreach(Transform t in Camera.main.transform){
 				t.gameObject.SetActive(false);
 			}

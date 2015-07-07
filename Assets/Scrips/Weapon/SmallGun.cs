@@ -19,20 +19,21 @@ public class SmallGun : Gun {
 	// Update is called once per frame
 	void Update () {
 		timer += Time.deltaTime;
+		if(PlayerHealth.isAlive){
+			if(Input.GetMouseButton(0) && timer >= fireRate){
+				Shoot();
+			}
 
-		if(Input.GetMouseButton(0) && timer >= fireRate){
-			Shoot();
-		}
-
-		if(timer >= fireRate * effectTime){
-			DissableEffects();
-		}
+			if(timer >= fireRate * effectTime){
+				DissableEffects();
+			}
 
 
-		if(Input.GetMouseButton(1) && weaponManager.GetBigBulletTimer >= subFireRate){
-			weaponManager.GetBigBulletTimer = 0;
-			subShootingSound.Play ();
-			Destroy(Instantiate(big_bullet_prefab, transform.position, transform.rotation), 5);
+			if(Input.GetMouseButton(1) && weaponManager.GetBigBulletTimer >= subFireRate){
+				weaponManager.GetBigBulletTimer = 0;
+				subShootingSound.Play ();
+				Destroy(Instantiate(big_bullet_prefab, transform.position, transform.rotation), 5);
+			}
 		}
 	}
 

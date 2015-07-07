@@ -19,7 +19,7 @@ public class PlayerStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		treasureDisplay.text = treasureCounter+"/"+GameMaster.targetTreasureNumber;
+		treasureDisplay.text = treasureCounter+"/"+GameMaster.treasureNumber;
 	}
 
 	void OnTriggerEnter(Collider c){
@@ -30,7 +30,7 @@ public class PlayerStatus : MonoBehaviour {
 			c.GetComponent<MeshRenderer>().enabled = false;
 			treasureOpen.Play ();
 			Destroy (c.gameObject, 1);
-			if(treasureCounter == GameMaster.targetTreasureNumber){
+			if(treasureCounter == GameMaster.treasureNumber){
 				PlayerHealth.isAlive = false;
 				treasureOpen.clip = winClip;
 				treasureOpen.Play();
