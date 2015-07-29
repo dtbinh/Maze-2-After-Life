@@ -57,7 +57,7 @@ public class SmallGun : Gun {
 			
 			EnemyHealth h = go.GetComponent<EnemyHealth>();
 			if(h != null){
-				h.TakeDamage(damage + PlayerStatus.damageIncreased);
+				h.TakeDamage((damage + PlayerStatus.damageIncreased) * DistanceDamageRatio(go.transform.position));
 			}
 			
 			if(spark_effect != null)

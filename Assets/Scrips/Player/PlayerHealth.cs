@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
-	public int baseHealth = 100;
-	public static int currentHealth;
+	public float baseHealth = 100;
+	public static float currentHealth;
 	public Image damageImage;
 	public float flashSpeed = 5f;
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour {
 	}
 	
 	// Take damage from enemies
-	public void TakeDamage(int amount) {
+	public void TakeDamage(float amount) {
 		damaged = true;
 		
 		currentHealth -= amount;

@@ -10,7 +10,7 @@ public class EnemyHealth : MonoBehaviour {
     public AudioSource enemyAudio;
 
     void Awake (){
-        currentHealth = startingHealth;
+        currentHealth = startingHealth * GameMaster.enemyHealthUpgrade;
     }
 
     public void TakeDamage(float amount) {

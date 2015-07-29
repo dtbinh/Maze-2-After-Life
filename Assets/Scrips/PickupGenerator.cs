@@ -11,10 +11,14 @@ public class PickupGenerator : MonoBehaviour {
 	public GameObject player;
 	public GameObject treasure;
 
+	GridGenerator gridGenerator;
+
 	// Use this for initialization
 	void Start () {
-		int index = Random.Range (0, GridGenerator.gridMapWorldPosition.Count - 1);
-		player.transform.position = GridGenerator.gridMapWorldPosition[index];
+		gridGenerator = GameObject.Find("_GridMapGenerator").GetComponent<GridGenerator>();
+
+		int index = Random.Range (0, gridGenerator.gridMapWorldPosition.Count - 1);
+		player.transform.position = gridGenerator.gridMapWorldPosition[index];
 
 		InstantiateTreasure (index);
 	}
@@ -49,7 +53,7 @@ public class PickupGenerator : MonoBehaviour {
 		}*/
 		
 		for (int z = 0; z < GameMaster.gridSizeZ; z++) {
-			Instantiate (treasure, GridGenerator.grid[Random.Range(0,GameMaster.gridSizeX),z].worldPosition, Quaternion.identity);
+			Instantiate (treasure, gridGenerator.grid[Random.Range(0,GameMaster.gridSizeX),z].worldPosition, Quaternion.identity);
 		}
 	}
 }

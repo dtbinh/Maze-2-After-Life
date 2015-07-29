@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scrips\Bots\Aggressive_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Attack Bot\AttackBot_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\Defence Bot\DefenceBot_AI.cs" />
      <Compile Include="Assets\Scrips\Bots\EnemyDrop.cs" />

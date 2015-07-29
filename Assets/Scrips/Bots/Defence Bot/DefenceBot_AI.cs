@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DefenceBot_AI : Aggressive_AI{
+public class DefenceBot_AI : Enemy_AI{
 	public float chargeTime;
 	public float chargeSpeed;
 	public float impactForce;
@@ -40,7 +40,7 @@ public class DefenceBot_AI : Aggressive_AI{
 		if(c.collider.tag == "Player" && targetMarked){
 			if ( !attacked){
 				attacked = true;
-				c.collider.GetComponent<PlayerHealth>().TakeDamage (damage + GameMaster.enemyPowerUpgrade);
+				c.collider.GetComponent<PlayerHealth>().TakeDamage (damage * GameMaster.enemyPowerUpgrade);
 				c.collider.GetComponent<Rigidbody>().AddForce(transform.position - c.collider.transform.position * 100);
 			}
 		}

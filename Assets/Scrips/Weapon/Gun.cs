@@ -13,4 +13,11 @@ public class Gun : MonoBehaviour {
 	public AudioSource subShootingSound;
 
 	protected float timer;
+
+	protected float DistanceDamageRatio(Vector3 target){
+		float distance = Vector3.Distance(transform.position, target);
+		if(distance > 5)
+			return 5 / distance;
+		else return 1;
+	}
 }

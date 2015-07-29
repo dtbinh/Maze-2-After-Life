@@ -8,6 +8,8 @@ public enum State{
 }
 
 public class Enemy_AI : MonoBehaviour {
+	public float attackRange;
+	public int damage;
 	public float speed;
 	public float damping;
 	public LayerMask targetLayer;
@@ -19,12 +21,12 @@ public class Enemy_AI : MonoBehaviour {
 
 	public State _state;
 
-
 	// Use this for initialization
 	void Awake () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		nav = GetComponent<NavMeshAgent>();
-		nav.speed = speed + GameMaster.enemySpeedUpgrade;
+		transform.GetChild (0).transform.GetChild (0).GetComponent<Renderer>().material.color = 
+			new Color(GameMaster.enemyColour, GameMaster.enemyColour, GameMaster.enemyColour, 1);
 	}
 
 	/* Facing the player

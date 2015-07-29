@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GridGenerator : MonoBehaviour {
-	public static Node[,] grid;
-	public static List<Vector3> gridMapWorldPosition;
+	public Node[,] grid;
+	public List<Vector3> gridMapWorldPosition;
 	public GameObject enemyGenerator;
 	public GameObject pickupGenerator;
 	int gridSizeX;
@@ -48,6 +48,33 @@ public class GridGenerator : MonoBehaviour {
 		if(((node.code & 8) != 0) && (node.x-1 >= 0))
 			neighbours.Add(grid[node.x-1,node.z]);
 		return neighbours;
+	}
+
+	public List<Node> GetDistanceNeighbours(Node start, int depth){
+		int currentDepth = 0;
+		var visited = new List<Node>();
+		var distanceNeighbours = new List<Node>();
+		var open = new Stack<Node>();
+		open.Push(start);
+		while(open.Count > 0){
+			Node currentNode = open.Pop();
+
+			if(currentDepth == depth){
+				if(!distanceNeighbours.Contains(currentNode))
+					distanceNeighbours.Add(currentNode);
+				visited.Add(currentNode);
+				currentDepth--;
+			}else{
+				visited.Add(currentNode);
+				foreach(Node neighbour in GetNeighbours(currentNode.worldPosition)){
+					if(!visited.Contains(neighbour))
+						open.Push(neighbour);
+				}
+			}
+
+			currentDepth++;
+		}
+		return distanceNeighbours;
 	}
 
 	public Node GetBlock(Vector3 pos){

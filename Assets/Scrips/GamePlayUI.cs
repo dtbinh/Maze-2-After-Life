@@ -18,10 +18,13 @@ public class GamePlayUI : MonoBehaviour {
     public CursorLockMode wantedMode;
 	public Canvas pausedUI;
 	public CanvasGroup pausedUICanvasGroup;
+	public RectTransform instructionPanel;
 	public GameObject weapon;
 	public AudioMixerSnapshot pausedAudio;
 	public AudioMixerSnapshot unpausedAudio;
+
 	PlayerMovement playerMovement;
+	bool instructionFate = false;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +35,7 @@ public class GamePlayUI : MonoBehaviour {
 		if(GameMaster.newPlayer){
 			Resume();
 		}
+		Invoke("StartFate", 3);
 	}
 	
 	// Update is called once per frame
@@ -45,7 +49,18 @@ public class GamePlayUI : MonoBehaviour {
 			if(!pausedUI.enabled)
 				Resume();
 		}
+
+		if(instructionFate){
+			instructionPanel.sizeDelta = new Vector2(instructionPanel.sizeDelta.x, instructionPanel.sizeDelta.y - Time.deltaTime * 150f);
+			if(instructionPanel.sizeDelta.y <= 0)
+				instructionFate = false;
+		}
 	}
+
+	void StartFate(){
+		instructionFate = true;
+	}
+
 	/*
 	 * Pause and unpause the game
 	 */

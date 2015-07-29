@@ -64,8 +64,11 @@ public class GameMaster : MonoBehaviour {
 	public static float newABotPerSecs;
 	public static float newSBotPerSecs;
 	public static float newDBotPerSecs;
-	public static int enemyPowerUpgrade;
-	public static int enemySpeedUpgrade;
+	public static float enemyUpgradeRate;
+	public static float enemyHealthUpgrade = 1f;
+	public static float enemyPowerUpgrade = 1f;
+	public static float enemySpeedUpgrade = 1f;
+	public static float enemyColour = 0.745f;
 	/*
 	 * Property for option menu
 	 */
@@ -125,8 +128,7 @@ public class GameMaster : MonoBehaviour {
 			newABotPerSecs = 1;
 			newSBotPerSecs = 3;
 			newDBotPerSecs = 3;
-			enemyPowerUpgrade = 0;
-			enemySpeedUpgrade = 0;
+			enemyUpgradeRate = 4;
 			treasureNumber = 5;
 			break;
 		case "Normal":
@@ -136,8 +138,7 @@ public class GameMaster : MonoBehaviour {
 			newABotPerSecs = 1;
 			newSBotPerSecs = 3;
 			newDBotPerSecs = 3;
-			enemyPowerUpgrade = 0;
-			enemySpeedUpgrade = 2;
+			enemyUpgradeRate = 3f;
 			treasureNumber = 6;
 			break;
 		case "Hard":
@@ -147,8 +148,7 @@ public class GameMaster : MonoBehaviour {
 			newABotPerSecs = 1;
 			newSBotPerSecs = 3;
 			newDBotPerSecs = 3;
-			enemyPowerUpgrade = 0;
-			enemySpeedUpgrade = 4;
+			enemyUpgradeRate = 2;
 			treasureNumber = 7;
 			break;
 		}
@@ -203,5 +203,9 @@ public class GameMaster : MonoBehaviour {
     	defencebotKilled = 0;
 		currentScore = 0;
 		totalBotKilled = 0;
+		enemyHealthUpgrade = 1f;
+		enemyPowerUpgrade = 1f;
+		enemySpeedUpgrade = 1f;
+		enemyColour = 0.700f;
 	}
 }

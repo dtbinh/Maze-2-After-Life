@@ -2,31 +2,32 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AttackBot_AI : Aggressive_AI {
+public class AttackBot_AI : Enemy_AI {
 	public float attackRate;
 	public float fieldOfViewAngle;
 	bool playerInRange = false;
 	float searchInterval = 2f;
-	float t;
+	float searchTimer;
 
 	// Update is called once per frame
 	void Update () {
 		_state = (PlayerHealth.isAlive)?_state:State.Idle;
-		t -= Time.deltaTime;
+		searchTimer -= Time.deltaTime;
 		timer -= Time.deltaTime;
-
-		if(nav.remainingDistance < 15f){
-			nav.SetDestination(player.transform.position);
-		}else if(t < 0){
-			t = searchInterval;
-			nav.SetDestination(player.transform.position);
-		}
 
 		switch(_state){
 		case State.Init:
 			Init ();
 			break;
 		case State.Attack:
+			/*if(nav.remainingDistance < 15f){
+				nav.SetDestination(player.transform.position);
+			}else if(searchTimer < 0){
+				searchTimer = searchInterval;
+				nav.SetDestination(player.transform.position);
+			}*/
+			nav.SetDestination(player.transform.position);
+
 			if(timer <= 0 && playerInRange){
 				timer = attackRate;
 				AttackPlayer();
@@ -51,7 +52,10 @@ public class AttackBot_AI : Aggressive_AI {
 
 	void Init(){
 		_state = State.Attack;
-		nav.destination = player.transform.position;
+
+		nav.SetDestination(player.transform.position);
+		nav.speed = speed * GameMaster.enemySpeedUpgrade;
+
 	}
 
 	protected void AttackPlayer(){
@@ -69,7 +73,7 @@ public class AttackBot_AI : Aggressive_AI {
 				// ... and if the raycast hits the player...
 				if(go.tag == player.tag){
 					// ... the player is in sight.
-					go.GetComponent<PlayerHealth>().TakeDamage(damage + GameMaster.enemyPowerUpgrade);
+					go.GetComponent<PlayerHealth>().TakeDamage(damage * GameMaster.enemyPowerUpgrade);
 				}
 			}
 		}
